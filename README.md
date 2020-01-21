@@ -28,7 +28,7 @@ services:
       volumes:
          - ./data/input_data:/data
       network_mode: host
-      cmd: optional override
+      command: optional override
 ```
 
 Default command is:  
