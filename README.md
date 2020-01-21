@@ -12,10 +12,10 @@ nfdump (with NSEL enabled) in a container
 If you wish to override the version simply pass the version as an argument
 
 ```sh
-./build.sh 1.6.17
+./build.sh 1.6.18
 ```
 
-The image created will be netsage/nfdump-collector:1.6.17
+The image created will be netsage/nfdump-collector:1.6.18
 
 # Docker-compose / Stack setup.
 
@@ -33,7 +33,7 @@ services:
 
 Default command is:  
 
-```sh 
+```bash 
 nfcapd -T all -l /data -S 1 -w -z -p 9999
 ```
 
