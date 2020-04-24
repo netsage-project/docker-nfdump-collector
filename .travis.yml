@@ -1,22 +1,15 @@
 services:
-  - docker
+- docker
 
 env:
+  matrix:
   - NFDUMP_VERSION=1.6.18
-#  - DOCKER_COMPOSE_VERSION=1.25.4
-#
-#before_install:
-#  - sudo rm /usr/local/bin/docker-compose
-#  - curl -L https://github.com/docker/compose/releases/download/${DOCKER_COMPOSE_VERSION}/docker-compose-`uname -s`-`uname -m` > docker-compose
-#  - chmod +x docker-compose
-#  - sudo mv docker-compose /usr/local/bin
-
+  global:
+    secure: HdFD5igDFBGL88P+WQgc/KlnZnXDThcj5ZOuT+mppexHQJXl8BzN/emtqYXOHktffqwLdgKbXMIWp8uU9qXAltMDnaeig3nDw3UM1qnUPSzwx9/FLl4SHSgVBSvZPLsTsrciXBTAk4HzMoSP/GA6/IeXjp/NjfJEC9lFkIMbuKDN23Dv6vEEFkhZ5dnpQPSnmFQtOKC2ux8JqwEWJTtkG30J77HbU8Y5F+ng2d++y+2bsmWSpIuqysGf7u8FjlWl/FHFq9sH+kDyE7V3Ql9SxizGEYkMBEIYPiiKG5CxWeLyKYjBf4jfOSTQ+fZm6TdmvJWNnqjxc/ZllyFqjsoSusi8wHpGYiT6QDAjjPfelTm/gT3OjydlXX8fubDMTMdSjSjDtgmTh0voHFbiXX7tAQ9DLsiYzoX3XFR6kApNrVghOH/jEr606Z00AeMgcVEcmSdkRVVvASxeWzSYXIkILiTeHVxZLzQbbxnZGob4HeY5ZqrakJhkp1mdBJ4D+GqLVaWbEzhiR1xr7ldEIFa7OC89Fi+tU0rs3SdXplnXth6SlvvIfefJJv1rvWd/FIHpL6Um2a3RoGxrh1NCorPNhk1G9U5X5D04ukojzcPSyathV+7MfOywbtDu6FtuM3yX/W9cuBZUgRL1ceKWNm8WAMEdxLGKhPfCA24JENihWZU=
 
 jobs:
-    include:
-        - stage: build and publish 
-          script: >-
-             ./build.sh $NFDUMP_VERSION  && 
-             docker images &&
-             echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin && 
-             docker push netsage/nfdump-collector:$NFDUMP_VERSION
+  include:
+  - stage: build docker image
+    if: type = pull_request or branch =~ /^\d+.\d+.\d+$/
+    script:
+    - "./scripts/integration.sh"
