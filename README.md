@@ -42,7 +42,7 @@ nfcapd -T all -l /data -S 1 -w -z -p 9999
 version: '3.7'
 services:
   collector:
-      image: netsage/nfdump-collector:1.6.18-centos-8
+      image: netsage/nfdump-collector:1.6.18
       command: /usr/local/bin/nfcapd -T all -l /data -S 1 -w -z -p 9999
       ports:
         - "9999:9999/udp"
