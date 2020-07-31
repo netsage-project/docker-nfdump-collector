@@ -17,7 +17,7 @@ RUN  \
 #Build
 RUN cd /tmp/nfdump-$NFDUMP_VERSION \
     && ./autogen.sh  \
-    && ./configure --enable-nsel=yes --enable-shared=true --enable-sflow=yes \
+    && ./configure --enable-nsel=yes --enable-shared=false --enable-sflow  \
     && make  \
     && cd /tmp/nfdump-$NFDUMP_VERSION && make install  \
     && cd .. \
