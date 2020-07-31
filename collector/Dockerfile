@@ -25,4 +25,4 @@ RUN cd /tmp/nfdump-$NFDUMP_VERSION \
 
 VOLUME /data
 
-CMD ["sfcapd", "-T", "all", "-l", "/data", "-S", "1", "-w", "-z", "-p", "9999"]
+CMD ["nfcapd", "-T", "all", "-l", "/data", "-S", "1", "-w", "-z", "-p", "9999"]
