@@ -5,14 +5,13 @@ ARG NFDUMP_VERSION=1.6.18
 WORKDIR /tmp
 
 ## Install OS dependencies
+ADD https://github.com/phaag/nfdump/archive/v$NFDUMP_VERSION.tar.gz /tmp
 RUN  \
     yum  -y update \ 
     && yum install -y epel-release \
-    && yum install -y wget bzip2-devel \
+    && yum install -y bzip2-devel \
     && yum groupinstall 'Development Tools' -y \
-    &&  wget -q --no-check-certificate https://github.com/phaag/nfdump/archive/v$NFDUMP_VERSION.tar.gz \
-    && tar xfz v$NFDUMP_VERSION.tar.gz \
-    && rm v$NFDUMP_VERSION.tar.gz 
+    && tar xfz v$NFDUMP_VERSION.tar.gz 
 
 #Build
 RUN cd /tmp/nfdump-$NFDUMP_VERSION \
@@ -21,7 +20,10 @@ RUN cd /tmp/nfdump-$NFDUMP_VERSION \
     && make  \
     && cd /tmp/nfdump-$NFDUMP_VERSION && make install  \
     && cd .. \
-    && rm -rf nfdump-$NFDUMP_VERSION
+    && rm /tmp/v$NFDUMP_VERSION.tar.gz \
+    && rm -rf nfdump-$NFDUMP_VERSION \
+    && yum groupremove -y "Development tools" \
+    && yum clean all
 
 VOLUME /data
 
