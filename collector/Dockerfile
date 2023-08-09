@@ -1,6 +1,6 @@
 FROM centos:8 
 
-ARG NFDUMP_VERSION=1.6.18
+ARG NFDUMP_VERSION=1.6.23
 
 #Note: the new version requires newer verion of gcc than comes with Centos:8
 #later: try upgrading to  rockylinux:9.2, and then try this version ?
