@@ -1,21 +1,25 @@
-FROM alpine:3.12.4
 
-ARG NFDUMP_VERSION=1.6.23
+# older version for pipeline 1.2.x
+#FROM alpine:3.12.4
+#ARG NFDUMP_VERSION=1.6.23
+#
+# New version for pipeline 2.x
+FROM alpine:3.18.3
+ARG NFDUMP_VERSION=1.7.2
 
 WORKDIR /tmp
 
 ## Install OS dependencies
 ADD https://github.com/phaag/nfdump/archive/v$NFDUMP_VERSION.tar.gz /tmp
-RUN  \
-   apk add --no-cache  libtool bzip2-dev && \
-   apk add --no-cache --virtual build-deps  libtool autoconf automake m4 pkgconfig make g++ flex byacc 
+RUN apk add --no-cache libtool bzip2-dev 
+RUN apk add --no-cache --virtual build-deps  libtool autoconf automake m4 pkgconfig make g++ flex byacc 
 
 #Build
 RUN  \
     tar xfz v$NFDUMP_VERSION.tar.gz  \
     && cd /tmp/nfdump-$NFDUMP_VERSION \
     && ./autogen.sh  \
-    && ./configure --enable-nsel=yes --enable-shared=true --enable-sflow=yes \
+    && ./configure --enable-nsel=yes --enable-sflow=yes \
     && make  \
     && cd /tmp/nfdump-$NFDUMP_VERSION && make install  \
     && cd .. \

@@ -1,10 +1,11 @@
 #!/bin/sh
 set -x
 
-VERSION=${1:-1.6.23}
+#VERSION=${1:-1.6.23}
+VERSION=${1:-1.7.2}
 
-docker build --build-arg NFDUMP_VERSION=$VERSION  --tag tacc/netsage-nfdump-collector:$VERSION  collector
-#docker build --build-arg NFDUMP_VERSION=$VERSION  --tag netsage/nfdump-collector:$VERSION --squash  collector
+# currently only using alpine linux version
+#docker build --build-arg NFDUMP_VERSION=$VERSION  --tag tacc/netsage-nfdump-collector:$VERSION  collector
 
 docker build --build-arg NFDUMP_VERSION=$VERSION  --tag tacc/netsage-nfdump-collector:alpine-$VERSION -f collector/Dockerfile-alpine  .
-#docker build --build-arg NFDUMP_VERSION=$VERSION  --tag netsage/nfdump-collector:alpine-$VERSION -f collector/Dockerfile-alpine --squash  .
+

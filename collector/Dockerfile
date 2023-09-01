@@ -1,6 +1,11 @@
-FROM centos:8 
 
-ARG NFDUMP_VERSION=1.6.23
+# older version for pipeline 1.2.x
+# FROM centos:8 
+# ARG NFDUMP_VERSION=1.6.23
+# #
+# New version for pipeline 2.x
+FROM rockylinux:9.2
+ARG NFDUMP_VERSION=1.7.2
 
 #Note: the new version requires newer verion of gcc than comes with Centos:8
 #later: try upgrading to  rockylinux:9.2, and then try this version ?
@@ -11,8 +16,8 @@ WORKDIR /tmp
 ADD https://github.com/phaag/nfdump/archive/v$NFDUMP_VERSION.tar.gz /tmp
 
 ## needed to fix Centos 8 mirror issue
-RUN cd /etc/yum.repos.d; sed -i 's/mirrorlist/#mirrorlist/g' /etc/yum.repos.d/CentOS-* ; \
-    sed -i 's|#baseurl=http://mirror.centos.org|baseurl=http://vault.centos.org|g' /etc/yum.repos.d/CentOS-*
+#RUN cd /etc/yum.repos.d; sed -i 's/mirrorlist/#mirrorlist/g' /etc/yum.repos.d/CentOS-* ; \
+#    sed -i 's|#baseurl=http://mirror.centos.org|baseurl=http://vault.centos.org|g' /etc/yum.repos.d/CentOS-*
 
 ## Install OS dependencies
 RUN  yum  -y update 
