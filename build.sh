@@ -2,7 +2,7 @@
 set -x
 
 #VERSION=${1:-1.6.23}
-VERSION=${1:-1.7.2}
+VERSION=${1:-1.7.4}
 
 # currently only using alpine linux version
 #docker build --build-arg NFDUMP_VERSION=$VERSION  --tag tacc/netsage-nfdump-collector:$VERSION  collector
